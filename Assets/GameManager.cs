@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour
 
     private void UpdateTexts()
     {
-        cheesesText.text = (Mathf.Round(cheeses * 100)/100).ToString() + " Cheeses";
+        cheesesText.text = Mathf.Round(cheeses).ToString() + " Cheeses";
     }
 
     private void Save()
