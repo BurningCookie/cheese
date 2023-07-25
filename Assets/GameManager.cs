@@ -6,9 +6,9 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     //static Variables
-    public static float cheeses;
-    public static float cheesesPerClick;
-    public static float cheesesPerSecond;
+    public static float cheeses = 0;
+    public static float cheesesPerClick = 1;
+    public static float cheesesPerSecond = 1;
     public static float multiplier = 1;
 
 
@@ -18,7 +18,12 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        cheesesPerSecond = 1;
+        Save();
+    }
+
+    private void OnApplicationQuit()
+    {
+        Load();
     }
 
     private void Update()
@@ -30,5 +35,26 @@ public class GameManager : MonoBehaviour
     private void UpdateTexts()
     {
         cheesesText.text = (Mathf.Round(cheeses * 100)/100).ToString() + " Cheeses";
+    }
+
+    private void Save()
+    {
+        GameData savedData = SaveSystem.LoadGameData();
+        cheeses = savedData.cheeses;
+        cheesesPerClick = savedData.cheesesPerClick;
+        cheesesPerSecond = savedData.cheesesPerSecond;
+        multiplier = savedData.multiplier;
+    }
+
+    private void Load()
+    {
+        GameData data = new GameData();
+
+        data.cheeses = cheeses;
+        data.cheesesPerClick = cheesesPerClick;
+        data.multiplier = multiplier;
+        data.cheesesPerSecond = cheesesPerSecond;
+
+        SaveSystem.SaveGameData(data);
     }
 }
