@@ -18,12 +18,12 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        Save();
+        Load();
     }
 
     private void OnApplicationQuit()
     {
-        Load();
+        Save();
     }
 
     private void Update()
@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
         cheesesText.text = Mathf.Round(cheeses).ToString() + " Cheeses";
     }
 
-    private void Save()
+    private void Load()
     {
         GameData savedData = SaveSystem.LoadGameData();
         cheeses = savedData.cheeses;
@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
         multiplier = savedData.multiplier;
     }
 
-    private void Load()
+    private void Save()
     {
         GameData data = new GameData();
 
